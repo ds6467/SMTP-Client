@@ -32,7 +32,7 @@ def smtp_client(port=1025, mailserver='127.0.0.1'):
       #print('250 reply not received from server.!')
 
    # Send RCPT TO command and print server response.
-   rcpt_command = ('RCPT TO: <donald.shkembi@hotmail.com>\r\n') # Recepient
+   rcpt_command = ('RCPT TO:<donald.shkembi@hotmail.com>\r\n') # Recepient
    clientSocket.send(rcpt_command.encode())
    recv3 = clientSocket.recv(1024).decode()
    if recv3[:3] != '250':  # if the data is not received
@@ -40,7 +40,7 @@ def smtp_client(port=1025, mailserver='127.0.0.1'):
 
 
    # Send DATA command and print server response.
-   data = "DATA \r\n"
+   data = "DATA\r\n"
    clientSocket.send(data.encode())
    recv4 = clientSocket.recv(1024).decode()
    if recv4[:3] != '354':  # if the data is not received
@@ -65,7 +65,6 @@ def smtp_client(port=1025, mailserver='127.0.0.1'):
    recv5 = clientSocket.recv(1024).decode()
    if recv5[:3] != '221':
       #print('server refuse to close connection')
-   else:
       clientSocket.close()
 
 
