@@ -1,11 +1,11 @@
 from socket import *
 
-def smtp_client(port=25, mailserver='smtp.nyu.edu'):
+def smtp_client(port=1025, mailserver='127.0.0.1'):
    msg = "\r\n My Message"
    endmsg = "\r\n.\r\n"
 
    # Choose a mail server (e.g. Google mail server) if you want to verify the script beyond GradeScope
-   mailserver = ('smtp.nyu.edu', 25)
+   mailserver = ('127.0.0.1', 1025)
 
    # Create socket called clientSocket and establish a TCP connection with mailserver and port
    clientSocket = socket(AF_INET, SOCK_STREAM)
@@ -70,5 +70,5 @@ def smtp_client(port=25, mailserver='smtp.nyu.edu'):
 
 
 if __name__ == '__main__':
-   smtp_client(25, 'smtp.nyu.edu')
+   smtp_client(1025, '127.0.0.1')
 
