@@ -12,7 +12,7 @@ def smtp_client(port=1025, mailserver='127.0.0.1'):
    clientSocket.connect(mailserver)
 
    recv = clientSocket.recv(1024).decode()
-   print(recv)
+   #print(recv)
    if recv[:3] != '220':
        #print('220 reply not received from server.')
 
@@ -20,7 +20,7 @@ def smtp_client(port=1025, mailserver='127.0.0.1'):
    heloCommand = 'HELO Alice\r\n'
    clientSocket.send(heloCommand.encode())
    recv1 = clientSocket.recv(1024).decode()
-   print(recv1)
+   #print(recv1)
    if recv1[:3] != '250':
        #print('250 reply not received from server.')
 
@@ -28,7 +28,7 @@ def smtp_client(port=1025, mailserver='127.0.0.1'):
    mail_command = ('MAIL FROM: <ds6467@nyu.edu>\r\n') # from who the message will appear
    clientSocket.send(mail_command.encode())
    recv2 = clientSocket.recv(1024).decode()
-   print(recv2)
+   #print(recv2)
    if recv2[:3] != '250': #if the data is not received
       #print('250 reply not received from server.!')
 
@@ -36,7 +36,7 @@ def smtp_client(port=1025, mailserver='127.0.0.1'):
    rcpt_command = ('RCPT TO: <donald.shkembi@hotmail.com>\r\n') # Recepient
    clientSocket.send(rcpt_command.encode())
    recv3 = clientSocket.recv(1024).decode()
-   print(recv3)
+   #print(recv3)
    if recv3[:3] != '250':  # if the data is not received
       #print('250 reply not received from server.')
 
@@ -45,7 +45,7 @@ def smtp_client(port=1025, mailserver='127.0.0.1'):
    data = "DATA \r\n"
    clientSocket.send(data.encode())
    recv4 = clientSocket.recv(1024).decode()
-   print(recv4)
+   #print(recv4)
    if recv4[:3] != '354':  # if the data is not received
       #print('354 reply not received from server.')
 
@@ -62,15 +62,13 @@ def smtp_client(port=1025, mailserver='127.0.0.1'):
 
    # Message ends with a single period.
    recv_msg = clientSocket.recv(1024)
-   print("Response after sending message body:" + recv_msg.decode())
+   #print("Response after sending message body:" + recv_msg.decode())
    quitcommand = ('QUIT\r\n')
    clientSocket.send(quitcommand.encode())
    recv5 = clientSocket.recv(1024).decode()
-   print(recv5)
-   if recv5[:3] != '221':
-      #print('server refuse to close connection')
-   else:
-      clientSocket.close()
+   #print(recv5)
+   
+   clientSocket.close()
 
 
 if __name__ == '__main__':
