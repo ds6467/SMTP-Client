@@ -63,7 +63,8 @@ def smtp_client(port=1025, mailserver='127.0.0.1'):
 
    subject = "Subject: testing my smtp client code \r\n\r\n"
    clientSocket.send(subject.encode())
-   clientSocket.send(msg.encode())
+   message = raw_input("Enter message: \r\n")
+   clientSocket.send(message.encode())
    clientSocket.send(endmsg.encode())
 
 
