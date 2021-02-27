@@ -55,7 +55,8 @@ def smtp_client(port=1025, mailserver='127.0.0.1'):
    # Send message data.
    subject = "Subject: testing my smtp client code \r\n\r\n"
    clientSocket.send(subject.encode())
-   clientSocket.send(msg.encode())
+   messag = input("Enter your message"
+   clientSocket.send(messag.encode())
    clientSocket.send(endmsg.encode())
 
 
@@ -68,9 +69,9 @@ def smtp_client(port=1025, mailserver='127.0.0.1'):
 
    quitcommand = ('QUIT\r\n')
    clientSocket.send(quitcommand.encode())
-   recv5 = clientSocket.recv(1024).decode()
+   messag = clientSocket.recv(1024).decode()
    #print(recv5)
-   if recv5 [:3] != '221':
+   if messag [:3] != '221':
        #print('Server refused to close connection')
 
       clientSocket.close()
