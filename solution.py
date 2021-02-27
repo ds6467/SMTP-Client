@@ -72,8 +72,8 @@ def smtp_client(port=25, mailserver='smtp.nyu.edu'):
    recv5 = clientSocket.recv(1024).decode()
    if(recv5 [:3] != '221'):
        #print('Server refused to close connection')
-   else:
-       clientSocket.close()
+
+   clientSocket.close()
 
    
 if __name__ == '__main__':
