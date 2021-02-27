@@ -1,16 +1,15 @@
 from socket import *
 
-def smtp_client(port=1025, mailserver='127.0.0.1'):
+def smtp_client(port=25, mailserver='smtp.nyu.edu'):
    msg = "\r\n My Message"
    endmsg = "\r\n.\r\n"
 
    # Choose a mail server (e.g. Google mail server) if you want to verify the script beyond GradeScope
-   mailserver = '127.0.0.1'
-   port = 1025
+   mailserver = ('smtp.nyu.edu', 25)
 
    # Create socket called clientSocket and establish a TCP connection with mailserver and port
    clientSocket = socket(AF_INET, SOCK_STREAM)
-   clientSocket.connect(mailserver, port)
+   clientSocket.connect(mailserver)
 
    recv = clientSocket.recv(1024).decode()
    #print(recv)
@@ -34,6 +33,7 @@ def smtp_client(port=1025, mailserver='127.0.0.1'):
       #print('250 reply not received from server.!')
 
    # Send RCPT TO command and print server response.
+
    rcpt_command = ('RCPT TO: <donald.shkembi@hotmail.com>\r\n') # Recepient
    clientSocket.send(rcpt_command.encode())
    recv3 = clientSocket.recv(1024).decode()
@@ -43,6 +43,7 @@ def smtp_client(port=1025, mailserver='127.0.0.1'):
 
 
    # Send DATA command and print server response.
+
    data = "DATA \r\n"
    clientSocket.send(data.encode())
    recv4 = clientSocket.recv(1024).decode()
@@ -52,27 +53,29 @@ def smtp_client(port=1025, mailserver='127.0.0.1'):
 
 
    # Send message data.
- 
-   subject = "Subject: testing my client\r\n\r\n"
+
+   subject = "Subject: testing my smtp client code \r\n\r\n"
    clientSocket.send(subject.encode())
-   #date = date + "\r\n\r\n"
-   #clientSocket.send(date.encode())
    clientSocket.send(msg.encode())
    clientSocket.send(endmsg.encode())
 
 
    # Message ends with a single period.
-   recv_msg = clientSocket.recv(1024)
-   #print("Response after sending message body:" + recv_msg.decode())
+
+   #recv_msg = clientSocket.recv(1024)
+   print("Response after sending message body:" + recv_msg.decode())
    if(recv_msg [:3] != '250'):
       #print('250 reply not received from server')
+
    quitcommand = ('QUIT\r\n')
    clientSocket.send(quitcommand.encode())
    recv5 = clientSocket.recv(1024).decode()
-   #print(recv5)
+   if(recv5 [:3] != '221'):
+       #print('Server refused to close connection')
+   else:
+       clientSocket.close()
+
    
-   clientSocket.close()
-
-
 if __name__ == '__main__':
-   smtp_client(1025, '127.0.0.1')
+   smtp_client(25, 'smtp.nyu.edu')
+
