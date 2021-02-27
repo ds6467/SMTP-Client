@@ -3,8 +3,8 @@ from socket import *
 def smtp_client(port=1025, mailserver='127.0.0.1'):
    msg = "\r\n My Message"
    endmsg = "\r\n.\r\n"
-   fromaddress = input("Please enter sender address")
-   toaddress = input("Please enter recepient address")
+   fromaddress = input("Please enter sender address: ")
+   toaddress = input("Please enter recepient address: ")
 
    # Choose a mail server (e.g. Google mail server) if you want to verify the script beyond GradeScope
    mailserver = ('127.0.0.1', 1025)
@@ -67,7 +67,7 @@ def smtp_client(port=1025, mailserver='127.0.0.1'):
    recv_msg = clientSocket.recv(1024).decode()
    #print(recv_msg)
    if recv_msg [:3] != '250':
-      print('250 reply not received from server')
+      #print('250 reply not received from server')
 
    quitcommand = ('QUIT\r\n')
    clientSocket.send(quitcommand.encode())
