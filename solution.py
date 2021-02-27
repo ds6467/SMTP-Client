@@ -5,7 +5,7 @@ def smtp_client(port=1025, mailserver='127.0.0.1'):
    endmsg = "\r\n.\r\n"
 
    # Choose a mail server (e.g. Google mail server) if you want to verify the script beyond GradeScope
-   mailserver = ('smtp.nyu.edu', 25)
+   mailserver = ('127.0.0.1', 1025)
 
    # Create socket called clientSocket and establish a TCP connection with mailserver and port
    clientSocket = socket(AF_INET, SOCK_STREAM)
@@ -74,7 +74,7 @@ def smtp_client(port=1025, mailserver='127.0.0.1'):
    if recv5 [:3] != '221':
        print('Server refused to close connection')
    else:
-   clientSocket.close()
+       clientSocket.close()
 
 
 if __name__ == '__main__':
