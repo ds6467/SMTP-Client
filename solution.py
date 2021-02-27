@@ -62,20 +62,21 @@ def smtp_client(port=25, mailserver='smtp.nyu.edu'):
 
    # Message ends with a single period.
 
-   #recv_msg = clientSocket.recv(1024)
-   print("Response after sending message body:" + recv_msg.decode())
-   if(recv_msg [:3] != '250'):
+   recv_msg = clientSocket.recv(1024).decode()
+   #print(recv_msg)
+   if recv_msg [:3] != '250':
       #print('250 reply not received from server')
 
    quitcommand = ('QUIT\r\n')
    clientSocket.send(quitcommand.encode())
    recv5 = clientSocket.recv(1024).decode()
-   if(recv5 [:3] != '221'):
+   #print(recv5)
+   if recv5 [:3] != '221':
        #print('Server refused to close connection')
 
    clientSocket.close()
 
-   
+
 if __name__ == '__main__':
    smtp_client(25, 'smtp.nyu.edu')
 
