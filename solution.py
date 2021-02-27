@@ -24,26 +24,26 @@ def smtp_client(port=1025, mailserver='127.0.0.1'):
         heloCommand = 'HELO Alice\r\n'
         clientSocket.send(heloCommand.encode())
         recv = clientSocket.recv(1024).decode()
-        print(recv)
+        #print(recv)
 
         # Send MAIL FROM command and print server response.
         # from who the message will appear
         clientSocket.send(mail_command.encode())
         recv = clientSocket.recv(1024).decode()
-        print(recv)
+        #print(recv)
 
         # Send RCPT TO command and print server response.
 
         # Recepient
         clientSocket.send(rcpt_command.encode())
         recv = clientSocket.recv(1024).decode()
-        print(recv)
+        #print(recv)
 
         # Send DATA command and print server response.
 
         clientSocket.send(data.encode())
         recv = clientSocket.recv(1024).decode()
-        print(recv)
+        #print(recv)
 
         # Send message data.
 
@@ -59,7 +59,7 @@ def smtp_client(port=1025, mailserver='127.0.0.1'):
         quitcommand = ('QUIT\r\n')
         clientSocket.send(quitcommand.encode())
         recv = clientSocket.recv(1024).decode()
-        print(recv)
+        #print(recv)
 
         clientSocket.close()
 
