@@ -1,6 +1,6 @@
 from socket import *
 
-def smtp_client(port=25, mailserver='smtp.nyu.edu'):
+def smtp_client(port=1025, mailserver='127.0.0.1'):
    msg = "\r\n My Message"
    endmsg = "\r\n.\r\n"
 
@@ -73,10 +73,10 @@ def smtp_client(port=25, mailserver='smtp.nyu.edu'):
    print(recv5)
    if recv5 [:3] != '221':
        print('Server refused to close connection')
-
+   else:
    clientSocket.close()
 
 
 if __name__ == '__main__':
-   smtp_client(25, 'smtp.nyu.edu')
+   smtp_client(1025, '127.0.0.1')
 
