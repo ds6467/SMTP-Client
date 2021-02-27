@@ -61,11 +61,16 @@ def smtp_client(port=1025, mailserver='127.0.0.1'):
 
    # Send message data.
 
-   subject = "Subject: testing my smtp client code \r\n\r\n"
-   clientSocket.send(subject.encode())
-   message = raw_input("Enter message: \r\n")
-   clientSocket.send(message.encode())
-   clientSocket.send(endmsg.encode())
+   #subject = "Subject: testing my smtp client code \r\n\r\n"
+   #clientSocket.send(subject.encode())
+   #message = raw_input("Enter message: \r\n")
+   #clientSocket.send(message.encode())
+   #clientSocket.send(endmsg.encode())
+   message += 'subject:' + subject + '\r\n'
+   message += 'Content-Type:' + contenttype + '\t\n'
+   message += '\r\n' + msg
+   clientSocket.sendall(message.encode())
+
 
 
    # Message ends with a single period.
