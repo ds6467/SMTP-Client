@@ -3,6 +3,8 @@ from socket import *
 def smtp_client(port=1025, mailserver='127.0.0.1'):
    msg = "\r\n My Message"
    endmsg = "\r\n.\r\n"
+   fromaddress = input("Please enter sender address")
+   toaddress = input("Please enter recepient address")
 
    # Choose a mail server (e.g. Google mail server) if you want to verify the script beyond GradeScope
    mailserver = ('127.0.0.1', 1025)
@@ -25,7 +27,7 @@ def smtp_client(port=1025, mailserver='127.0.0.1'):
        print('250 reply not received from server.')
 
    # Send MAIL FROM command and print server response.
-   mail_command = ('MAIL FROM: <ds6467@nyu.edu>\r\n') # from who the message will appear
+   mail_command = ('MAIL FROM: <'+ fromaddress +'>\r\n') # from who the message will appear
    clientSocket.send(mail_command.encode())
    recv2 = clientSocket.recv(1024).decode()
    print(recv2)
@@ -34,7 +36,7 @@ def smtp_client(port=1025, mailserver='127.0.0.1'):
 
    # Send RCPT TO command and print server response.
 
-   rcpt_command = ('RCPT TO: <donald.shkembi@hotmail.com>\r\n') # Recepient
+   rcpt_command = ('RCPT TO: <'+ toaddress +'>\r\n') # Recepient
    clientSocket.send(rcpt_command.encode())
    recv3 = clientSocket.recv(1024).decode()
    print(recv3)
