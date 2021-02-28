@@ -1,0 +1,71 @@
+from socket import *
+import sys
+
+
+def smtp_client(port=25, mailserver='smtp.nyu.edu'):
+    msg = "\r\n My Message"
+    endmsg = "\r\n.\r\n"
+    mail_command = ('MAIL FROM: <ds6467@nyu.edu>\r\n')
+    rcpt_command = ('RCPT TO: <donald.shkembi@hotmail.com>\r\n')
+    data = "DATA \r\n"
+    subject = "Subject: testing my smtp client code \r\n\r\n"
+
+    # Choose a mail server (e.g. Google mail server) if you want to verify the script beyond GradeScope
+    mailserver = 'smtp.nyu.edu'
+    port = 25
+
+    # Create socket called clientSocket and establish a TCP connection with mailserver and port
+    clientSocket = socket(AF_INET, SOCK_STREAM)
+    clientSocket.connect((mailserver, port))
+
+    recv = clientSocket.recv(1024).decode()
+    if (recv[:3] != '250') and (recv[:3] != '354'):
+        # Send HELO command and print server response.
+        heloCommand = 'HELO Alice\r\n'
+        clientSocket.send(heloCommand.encode())
+        recv = clientSocket.recv(1024).decode()
+        print(recv)
+
+        # Send MAIL FROM command and print server response.
+        # from who the message will appear
+        clientSocket.send(mail_command.encode())
+        recv = clientSocket.recv(1024).decode()
+        print(recv)
+
+        # Send RCPT TO command and print server response.
+
+        # Recepient
+        clientSocket.send(rcpt_command.encode())
+        recv = clientSocket.recv(1024).decode()
+        print(recv)
+
+        # Send DATA command and print server response.
+
+        clientSocket.send(data.encode())
+        recv = clientSocket.recv(1024).decode()
+        print(recv)
+
+        # Send message data.
+
+        clientSocket.send(subject.encode())
+        clientSocket.send(msg.encode())
+        clientSocket.send(endmsg.encode())
+
+        # Message ends with a single period.
+
+        recv_msg = clientSocket.recv(1024).decode()
+        print(recv_msg)
+        # print('220 reply not received from server.')
+        quitcommand = ('QUIT\r\n')
+        clientSocket.send(quitcommand.encode())
+        recv = clientSocket.recv(1024).decode()
+        print(recv)
+
+        clientSocket.close()
+
+    else:
+        sys.exit()
+
+
+if __name__ == '__main__':
+    smtp_client(25, 'smtp.nyu.edu')
